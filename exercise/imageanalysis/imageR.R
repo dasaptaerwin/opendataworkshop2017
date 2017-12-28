@@ -1,6 +1,6 @@
 # Code for image manipulation and plotting exercise
 # Open data workshop
-# Willem Vervoort, Dasapta Erwin Irawan
+# Dasapta Erwin Irawan, Willem Vervoort
 # 5-9 Feb 2018
 
 ###### EBImage ######
