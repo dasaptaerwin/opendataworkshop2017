@@ -1,0 +1,121 @@
+---
+title: "Image Exercise"
+author: "Dasapta Erwin Irawan & Willem Vervoort"
+date: "Today's date is `r format(Sys.Date(),'%d-%m-%Y')`"
+output: 
+    pdf_document:
+      fig_width: 7
+      fig_height: 6
+      fig_caption: true
+---
+
+```{r setup, warning=F, message=F, echo=F}
+# root dir
+knitr::opts_knit$set(root.dir =  "c:/users/rver4657/owncloud/working/SSEAC/opendataworkshop2017/exercise")
+
+```
+
+## Introduction
+
+To demonstrate the overall process of collecting data, creating reproducible research, and publishing data  we have designed an exercise using simple images that we have collected during our small field excursion. While the current data are arbritrary, they contain several aspects that are useful to demonstrate steps in the open research data process.
+R markdown is a nice way to actually present your reproducible research, as it allows you to record both the code and the text.
+
+## Image analysis
+In the field excursion we collected some images, which we downloaded into a shared directory. Here we will do a simple analysis to extract the red and blue bands and calulate the average ratio of the red and blue bands, because we don't actually have access to any Near-Infrared to mimic NDVI.
+
+The first thing we need to do is to install the package `imager`, or just require if you have this already installed. We will also use the package `tidyverse` which we have seen before.
+
+```{r imager, message=F, warning=F}
+# not installed? run
+# install.packages("imager")
+# otherwise
+library(imager)
+library(tidyverse)
+
+```
+
+The next step is to load an image and to convert this to a data.frame
+
+```{r loadImage, fig.cap = "A demonstration picture"}
+our_image <- load.image("imageanalysis/5.jpg")
+plot(our_image)
+image_df <- as.data.frame(our_image)
+head(image_df,3)
+```
+
+As we can see, the data consists of the pixel x and y coordinate and a numerical value to indicate the R (red), G (green), and B (blue) channel. The data.frame is *stacked*. We can quickly plot the distributions of the different channels using `ggplot()`, and splitting the plot by channel.
+The first line of code assigns 'R', 'G' and 'B' to the numerical values for the channels. The next lines of code creates the histograms.
+
+```{r plotImage, fig.cap = "histograms of the different channels"}
+image_df <- mutate(image_df,channel=factor(cc,labels=c('R','G','B')))
+ggplot(image_df,aes(value,fill=channel))+
+  geom_histogram(bins=30)+
+  facet_wrap(~ channel)
+```
+
+## Creating the average R over R + B ratio
+
+The next step is to calculate the R/(R + B) values. For this we first need to *spread* the data.frame to create separate columns for R, G and B, and in the mean time dropping the column cc using `mutate()`.  
+
+```{r spread}
+image_df2 <- image_df %>% 
+  mutate(cc = NULL) %>%
+  spread(key = channel, value = value)
+head(image_df2)
+```
+
+Now it is simple to calculate the ratio using `mutate()` once again, plot a simple histogram of this data and finally calculate the mean value for the image.
+
+```{r ratio, fig.cap = "histogram of the R/(R + B) ratio"}
+image_df3 <- image_df2 %>%
+  mutate(ratio = R/(R+B))
+
+pl <- ggplot(image_df3,aes(ratio)) +
+  geom_histogram(bins=50) + xlab("R/(R + B) ratio")
+print(pl)
+
+# calculate the mean
+avg_ratio <- mean(image_df3$ratio, na.rm=T)
+round(avg_ratio,2)
+```
+
+## extracting the latitude and longitude data and plotting
+
+A nice feature of modern digital photography is that it directly comes with a lot of metadata including the latitude and longitude of where the photo was taken, the metadata on the images is called the **exif data**. There is a package in R that does this quite nicely, which is called `exifr`. There is additional package that allows plotting onto google map images. This is called `leaflet`.
+
+There is one small problem with `exifr` on Windows. The package assumes that you have the **perl** computer scripting language (similar to R) installed on your computer. This is the case on all Apple computers, but not on Windows. So on windows you have to first install Perl from:[http://strawberryperl.com/](http://strawberryperl.com/). 
+Then you can installl `leaflet` and `exifr`.
+
+```{r install_exifr}
+#install.packages(c("exifr", "leaflet"))
+# you have to install Perl on windows, as this is not included, it is included on Apple
+# then on windows point exifr to perl dir
+#options(exifr.perlpath='c:/strawberry')
+# then load the libraries into your workspace
+library(exifr)
+library(leaflet)
+```
+
+We can now read all the jpg files from a directory, and extract the information
+
+```{r plotjpglocations}
+files <- list.files(path = "imageanalysis", pattern = "*.jpg")
+dat <- read_exif(path = paste("imageanalysis/", files,sep=""))
+names(dat)
+
+```
+There is a lot of metadata with each photo and we can explore all of this, but we are only interested in the Latitude and Longitude. First we can make a simple plot of Longitude and Latitude.
+
+```{r simpleplot, fig.cap = "plotting the latitude and longitude of the metadata"}
+plot(dat$GPSLongitude, dat$GPSLatitude)
+
+```
+
+Or, nicer plot them onto some google imagery.
+
+```{r googleplot, fig.cap = "plotting the image locations onto a google image", eval = FALSE}
+# not run
+leaflet(dat) %>%
+  addProviderTiles("Esri.WorldImagery") %>%
+  addMarkers(~ GPSLongitude, ~ GPSLatitude)  
+```
