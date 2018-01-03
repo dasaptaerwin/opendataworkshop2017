@@ -4,34 +4,45 @@ author: "Dasapta Erwin Irawan & Willem Vervoort"
 date: "1 January 2018"
 output: 
   beamer_presentation: 
-    keep_tex: yes
+    keep_tex: no
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## R Markdown
+## Open data an reproducible research
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Summary  
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+* The issue with verifiable research  
+* Open and reproducible research  
+* Data and **open** data  
+* Challenges
 
-## Slide with Bullets
+## The issue with verifiable research
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
+* The current process is peer review  
+* Requires knowledgeable reviewers  
+* System has been questioned recently   
 
-## Slide with R Output
 
-```{r cars, echo = TRUE}
-summary(cars)
-```
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+  \includegraphics[width=1\textwidth]{images/NaturePeerreview.jpg}
+\end{column}
+\begin{column}{0.5\textwidth}
+  \includegraphics[width=1\textwidth]{images/NatureReproducibility.jpg}
+\end{column}
+\end{columns}
 
-## Slide with Plot
 
-```{r pressure}
-plot(pressure)
-```
+## An ideal description of open reproducible, peer reviewed research  
+
+
+## The roadblocks to open data and reproducible research
+
+## Open data, how do we deal with this  
+* Why do we want open data
+do it, How do we do it, How to increase the value of data, Data publishing and data citation, data paper and data journal. Class activity. Describe how you shared data. In groups, what are the main ways they currently use to store and what actions do you have to take to share data. How easily have you accessed someone else's data?
 
