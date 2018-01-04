@@ -32,6 +32,11 @@ ggplot(bdf,aes(value,col=channel))+
 # Ref: https://www.r-bloggers.com/extracting-exif-data-from-photos-using-r/
 # I think this is good for photos plotting exercise
 install.packages(c("exifr", "leaflet"))
+# you have to install Perl on windows, as this is not included
+# It is included on Apple
+# install from:http://strawberryperl.com/
+# then point exifr to perl dir
+options(exifr.perlpath='c:/strawberry')
 library(exifr)
 library(leaflet)
 library(tidyverse)
