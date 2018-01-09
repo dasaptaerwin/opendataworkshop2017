@@ -1,0 +1,463 @@
+---
+title: "Intro to R"
+author: "Willem Vervoort and Dasapta Erwin Irawan" 
+date: "09 December 2017"
+output: 
+  pdf_document:
+    number_sections: true
+    toc: true
+    toc_depth: 2
+---
+
+# Introduction  
+
+This is an introduction to R written for the "Open data workshop in Bandung 5-9 Feb 2018", jointly organised by the University of Sydney and Institut Teknologi Bandung. 
+
+This work is based on earlier events from the authors and it also builds on many of the introduction to R literature on the internet.    
+
+This course is not a complete introduction, and more in depth knowledge on R and the use of R can be gained from many courses on-line and by basic practice.  
+
+This course covers simple R, basic statistics, data frame operations, reading in files and a plotting. 
+
+We hope that this course offers sufficient depth to help you engage in the rest of the course, which uses R for analysis of the output.
+
+
+\newpage
+
+# R as a modelling environment
+
+The origins of R are in statistics, so this is hat R does best. However, over time, it has proven to be a flexible language that can also be used quite effectively for programming and data science.
+
+## R and R Studio
+
+### Base R vs IDE
+
+If R is the machine under the hood, then R Studio would be the dashboard, steering wheel, as well as the gas and brake paddles. People frequently mention R as `base R` and R Studio is an Integrated Development Environment (IDE). 
+
+Is there another IDE other than R Studio? The answer is Yes. You could check out R Commander, Revolution R. 
+
+### Running R online 
+
+Can we run R online? The answer is also Yes. R Studio offers a paid cloud service. You could try [R fiddle](http://www.r-fiddle.org/) for a limited range of code of package installation, [CoCalc/Sage Math Cloud](https://cocalc.com/), [Jupyter](https://jupyter.org/), and the New Comer [Code Ocean](https://codeocean.com/).   
+
+### R is cross platform
+
+R and R Studio are cross platform. So you could use R on these major OS', Windows, Mac or Linux, so it's OK if you work with another person who don't use the same OS as you do. You just have to make sure that all parties have the same data and the same package installed in the system, and the same codes to run.
+
+### How to install R and R Studio
+
+We recommend to install R first followed by R Studio. Install R from [CRAN](http://cran.at.r-project.org/) and R Studio from its official [site](http://rstudio.com).
+
+### R components
+
+In R programming, as also in other programming language, the two main components are the data and the codes. Using both, you could start an analysis and produce plots and tables as outputs. So in order to do the analysis, we will need `package`. 
+
+The good thing about R is, there are `base commands`, that is commands that included in the base R installation. This commands are progressing as you install newer version of R. It's getting better and easier through time. But users are allowed to make their own commands that consists of a function or sets of functions. Sets of function can be grouped as a `package`. So you would need to install the package first and load the package, before using the command or function inside that package. You would only need to install the package once.
+
+You could run this line to install a package from CRAN server.
+```
+install.packages("packageName") # case sensitive
+library(packageName) # to load the package
+```
+Other than CRAN, you may find packages that are still in development stage on [GitHub](http://github.com), a repository of codes. You could install a package on GitHub using `install_github` command from `devtools` package.
+
+```
+install.packages("devtools")
+library(devtools)
+install_github(repoAddress)
+```
+
+Now you could run a command from a package without loading the package. But off course you still need to install the package in to your system
+
+```
+install.packages("devtools")
+devtools::install_github(repoAddress)
+```
+
+### Navigation
+
+In R Studio, you would see four panels (clock-wise): Codes on top right, Environment, Files/folder/plots/packages, and console. You write your lines of code in the code panel then observe the process of you code in the console panel. Find out in console, if your codes are running well or have a problem (error messages), or just a warning. Then you could see all components that related to the process in the Environment panel.
+
+![Four panels in R Studio](four_panels.png)
+
+### Working folder structure
+In R and in any other command line-based application, you would need to tell the app your current folder location and the location of the data. Usually we use the following folder structure:
+
+ - main project folder
+  - data: put your data here
+  - code: put your code here
+  - output: put your plots and tables here
+  - text: put your report here
+
+But in practice, we usually work with code, data, outputs in one folder, but use it as a process or intermediate folder. We usually sort out the components at the final stage of our work. But when is "final stage" be? So do the file sorting several times.
+
+#### Exercise
+
+- Can you check your working folder/directory and what's inside it?
+
+\newpage
+
+# BASIC R  
+
+## R as a calculator
+
+In its most basic form, R is a calculator 
+```{r calculator}
+3*5
+50/100 + 0.1
+10 - 20
+```
+
+## Objects in R
+
+The basic structure of R is based on objects, which are named. R is case sensitive, so keep this in mind. The main object we will use here is a *dataframe* or its modern variant the *tibble*.  
+
+All objects will be loaded on to the memory. So if you have a datafile, the first thing to do is to load it on your memory as an object that can be seen in the Environment panel. Thus, whatever you do with the object will not change your file, unless you save the object as a file. 
+
+R uses "<-" to assign a value (or another object) to an object. You may find "=" means the same, but we don't recommend it, because you also use "=" with different meaning in the command and parameter.
+
+```{r objects}
+# assign
+x <- 5
+y <- 2
+```
+
+You can call up what is stored in the object (inspect) again by just typing its name:  
+
+```{r inspectObj}
+x
+```
+
+These objects will show up in the "Environment" window in  Rstudio, or you can use `ls()` in the console to list the objects. The function `c()` can be used to stick things together into a vector. Redo the below commands in your own script.  
+
+```{r objects_in_R}
+# a vector
+x = c(1,2,5,7,8,15,3,12,11,19)
+# another vector
+y = 1:10
+# you have now two objects
+ls()
+# you can add, multiply or subtract
+z = x + y
+z
+zz = x * y
+zz
+zzz = x - y
+zzz
+foo = 0.5*x^2 - 3*x + 2
+foo
+```
+
+## A dataframe  
+
+A dataframe is a bit more complex, and here is a simple demonstration of its power.
+
+```{r dataframe}
+Rainfall <- data.frame(City = c("Montevideo","New York", "Amsterdam","Sydney", "Moscow", "Hong Kong"),
+Rain_mm = c(950, 1174, 838, 1215, 707, 2400))
+Rainfall
+```
+
+As you can see a data.frame can mix character columns (City) and numeric columns (Rain_mm). Here I used `c()` to generate vectors which I put in the columns. In addition, the colummns have names, which you can access using `colnames()`:
+`r colnames(Rainfall)`  
+
+Once you have a dataframe, you can access parts of the dataframe or manipulate the dataframe.
+
+```{r workdf}
+# call a column
+Rainfall$City
+# or
+Rainfall["City"]
+# or
+Rainfall[,1]
+
+# find a row
+Rainfall[Rainfall["City"]=="Montevideo"]
+
+# see the first two rows
+Rainfall[1:2,]
+
+# find a subset
+lots <- Rainfall[Rainfall["Rain_mm"] > 1000,]
+lots
+```
+
+### Exercise
+
+Using the above examples, can you do the following?  
+
+- Extract the column with the rainfall values?  
+- Extract the row with the annual rainfall at Amsterdam?  
+- Which cities have rainfall below 1500 mm?  
+
+
+## The working directory  
+
+Generally R works from a "working directory". This is the directory on disk where it expects to find files or write files to. You can set this in Rstudio via the menu item "Session" --> "Set working directory", but you can also set this in code. Setting the working directory is useful when you want to access data in files on your computer or the network.
+
+The basic function to use is `setwd("path/to/file")`. The thing to note is that in the path description you have to use "forward /" rather than the standard windows "backward". 
+
+```{r workingdirectory}
+# set the working directory
+setwd("~/Documents/2018/SSEAC_2017/opendata_workshop/Introduction_to_R")
+
+# see some of the files
+dir()[1:10]
+```
+
+```{r reset_workdir,echo=F}
+#setwd(paste(root,"UruguaySWAT/UruguayCourse",sep="/"))
+```
+
+## Reading data from different sources
+
+There are a multitude of functions to read data from the disk into the R memory, I will demonstrate only a few here.
+
+Because a lot of data is stored in comma delimited txt files (such as Excel exports), using `read.csv()` is a good standard option. 
+
+Here I am reading in some monthly data from the Concordia station in the Uruguay river in Argentina. This data was originally downloaded from the 
+[Global River Discharge Database]("https://nelson.wisc.edu/sage/data-and-models/riverdata/index.php")  
+
+```{r read_csv}
+UR_flow <- read.csv("UruguayRiver_ConcordiaSt.csv")
+# check the first few lines (6 by default)
+head(UR_flow)
+```
+
+Previously you would have to save a binary data file, say in `xls` in to `csv` or `txt`. As R progresses, now you could load a dataset directly from its binary format. There are many packages to do such task, [readxl package](https://cran.r-project.org/web/packages/readxl/readxl.pdf) is one of them. You could google your way of the most convenient package to use.
+
+
+### Exercise  
+
+- Can you read in the file: "Parana_CorrientesSt.csv"?
+
+# STATISTICAL ANALYSIS AND DATA MANIPULATION
+
+Now it's time to dig ourselves in to a more technical bits. How to manipulate data so we can perform some analyses on it to answer our research problem. There are, offcourse, base R commands to do the job, but find it easier for us to use `tidyverse` package. This package is actually a combo of several packages written by the same author.
+
+## Packages to use
+
+Much of the power in R comes from the fact that it is open source and this means many people write new code and share this code. The formal way to do this is via "packages", which, once checked and endorsed by the R community, appear in the CRAN repository as a **package**.
+
+Here we might want to use some of the features in the package [tidyverse](http://tidyverse.org/). The other package we will use later is the package [zoo](https://cran.r-project.org/web/packages/zoo/index.html)
+
+There are two components to using packages. The first is to make sure that the package is installed, for which we can use the function `install.packages()`. Note that the name of the package is a *string* so needs to between quotes `""`.  
+
+```
+#install.packages("tidyverse")
+```
+
+If the package is installed in your personal library, you will need to load the package in R using `require()` or `library()`. There are subtle differences between these two functions, but they are currently not that important. Check the help files.
+
+```
+require(tidyverse)
+```
+
+### Exercise  
+
+- Can you load the package zoo? 
+
+## Statistical analysis
+
+### Summarising data  
+
+It is often important to summarise data, for example we might want to know the average monthly flow or the standard deviation of flow. R of course have several functions to deal with this. 
+
+### Standard statistical functions
+
+Here are some simple examples of standard statistical functions `mean`, `sd` and `cor` (and of course there are many more).
+
+```{r statfun}
+# average monthly flow
+mean(UR_flow$Flow)
+# st dev average flow
+sd(UR_flow$Flow)
+
+# subset two years and correlate
+flow1969 <- UR_flow[UR_flow$Year==1969,]
+flow1970 <- UR_flow[UR_flow$Year==1970,]
+
+cor(flow1969$Flow,flow1970$Flow)
+```
+
+### Using aggregate()  
+Another useful function is `aggregate()`, which allows you to apply a function over data frame and particular across different factors. Here is an example of summing the Uruguay river flow by year.
+
+```{r aggregate_demo}
+# aggregate to annual flow
+(annual_flow <- aggregate(UR_flow,list(Year=UR_flow$Year),sum))
+
+```
+
+Note that the parentheses around the statement means that the result of the statement is printed. 
+
+#### Exercise  
+
+- Can you calculate the standard deviation of the monthly flow by year?
+
+## Data manipulation (using `tidyverse`)
+
+Make sure you've done this.
+
+```
+install.packages("tidyverse")
+library(tidyverse)
+```
+
+## Important commands
+
+The following list is the important commands to remember:
+
+- `select()` 	select columns
+- `filter()` 	filter rows
+- `arrange()` re-order or arrange rows
+- `mutate()` 	create new columns
+- `summarise()` 	summarise values
+- `group_by()` 	allows for group operations in the “split-apply-combine” concept
+
+Let's open this dataset. It's a water quality data in `csv` format.
+
+```{r chemdata}
+chemdata <- read.csv("semarang_chem.csv", header = TRUE)
+head(chemdata)
+```
+
+### `select()`
+
+Suppose you want certain columns for your analysis. Use `select()`. In `tidyverse` package, we could use pipe operator `%>%` to give series of command. Instead of using many brackets.
+
+```
+chemdata %>%
+  select(Lat, Long) %>%
+  View("chemdata")
+```
+
+Or you want multiple columns `Lat`, `Long` until `Depth`. Use `select()` function.
+
+```
+chemdata %>%
+  select(Lat, Long:Depth) %>%
+  View("chemdata")
+```
+
+Or you want multiple columns Lat, Long until Depth, but you don't want UTM_zone. Use `select()` function.
+
+```
+chemdata %>%
+  select(Lat, Long:Depth, -UTM_zone) %>%
+  View("chemdata")
+```
+
+### `filter()`
+
+You want to select all data from Damar Formation. Use `filter()` function.
+
+```
+chemdata %>%
+  filter(Aq == "Damar") %>%
+  View("chemdata")
+```
+
+### `arrange()`
+
+Sorting out data by Aq and Fac. Use `arrange()` function.
+
+```
+chemdata %>%
+  arrange(Aq, Fac) %>%
+  View("chemdata")
+```
+
+### `mutate()`
+
+Making new columns, for instance, calculating the ration between Ca and Na. Use `mutate() function`
+
+```
+chemdata %>% 
+  mutate(ratio_Cana = Ca / Na) %>%
+  View("chemdata")
+```
+
+### `summarise()`
+
+Making a summary from your data. Use `summarise()` function.
+
+```
+chemdata %>% 
+  summarise(mean_TDS = mean(TDS), 
+            max_Cl = max(Cl),
+            min_Cl = min(Cl),
+            total = n())
+```
+
+### `group_by()`
+
+Sorting out the data based on certain order. Use `group_by()` function.
+
+```
+chemdata%>% 
+  group_by(Aq) %>%
+  summarise(mean_TDS = mean(TDS), 
+            max_Cl = max(Cl),
+            min_Cl = min(Cl),
+            total = n())
+```
+
+#### Exercise
+
+- try to evaluate your data by `group_by()`
+- try to summarise your own data using `summarise()`
+
+
+#PLOTTING
+
+R is good at plotting. There are many ways to create a plot. So you just have to choose which one is the easiest for you. One way is using base R plotting engine. Like these plots.
+
+```{r plotting1}
+hist(chemdata$SO4)
+hist(chemdata$EC)
+hist(chemdata$TDS)
+plot(chemdata$TDS, chemdata$Cl)
+```
+
+Maybe you want to look at them in one panel.
+
+```{r plotting2}
+par(mfrow=c(2,2))
+hist(chemdata$SO4)
+hist(chemdata$EC)
+hist(chemdata$TDS)
+plot(chemdata$TDS, chemdata$Cl)
+```
+
+You could always tweak the plot to suits your needs. There are many resources about plotting in R, like: 
+
+- [Producing Simple Graphs with R](https://www.harding.edu/fmccown/r/), 
+- [Quick R](https://www.statmethods.net/graphs/).
+- and more.
+
+Or you could you `ggplot2` plotting engine from `tidyverse`.
+
+```{r}
+library(ggplot2)
+```
+
+```{r plotting3}
+ggplot(chemdata, aes(EC, fill = Fac)) + 
+  geom_histogram()
+ggplot(chemdata, aes(Cl, TDS, colour = Fac)) + 
+  geom_point()
+```
+
+## Exercise
+
+- try to make a plot between Ca vs Na using base R and ggplot2.
+- can you tweak it by adding title to the plot and title to all axis.
+
+\newpage
+\center
+**END OF DOCUMENT**
+\center
+
+
+
