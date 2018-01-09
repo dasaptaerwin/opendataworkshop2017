@@ -26,8 +26,8 @@ Summary
 
 How many of you have?
 
-* Data from old research on a floppy disk, zip disk, usb stick, mobile harddrive. I am going to publish that one day.
-* Data on your harddrive from your PhD student, but you have no idea how he organised it
+* Data from old research on a floppy disk, zip disk, usb stick, mobile harddrive: *I am going to publish that one day!*.
+* Data on your harddrive from your PhD student, but you have no idea how she/he organised it
 * received data from a colleague and spend hours reformatting it to your needs  
 * asked data from a colleague, who said yes, but then could not find the data
 * spend hours filling in forms and e-mailing with another institution to access data (climatology!!)
@@ -168,7 +168,7 @@ include_graphics("images/field 027.JPG")
 * How do we regularly and consistently describe metadata with our data  
 * How do we easily publish data and preprints (How does our institution manage this)  
 * Understanding how we can protect IP: licencing and digital identifiers
-* Getting recognition from our institutions for open data publications
+* Getting recognition and support from our institutions for open data publications
 
 ```{r USYDrepos, out.width="50%"}
 include_graphics("images/USYDrepos.jpg")
