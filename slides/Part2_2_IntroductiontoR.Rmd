@@ -324,7 +324,7 @@ head(chemdata)
 
 ### `select()`
 
-Suppose you want certain columns for your analysis. Use `select()`. In `tidyverse` package, we could use pipe operator `%>%` to give series of command. Instead of using many brackets.
+Suppose you want certain columns for your analysis. Use `select()`. In `tidyverse` package, we could use pipe operator `%>%` to give series of command. Instead of using many brackets. 
 
 ```
 chemdata %>%
@@ -452,6 +452,7 @@ ggplot(chemdata, aes(Cl, TDS, colour = Fac)) +
 ## Exercise
 
 - try to make a plot between Ca vs Na using base R and ggplot2.
+- try to make histogram for one parameter that you have in your dataset. Use base R and ggplot2.
 - can you tweak it by adding title to the plot and title to all axis.
 
 \newpage
