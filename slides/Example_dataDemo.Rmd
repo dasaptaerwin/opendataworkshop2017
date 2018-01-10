@@ -1,12 +1,13 @@
 ---
 title: "Example data, description and intro into RMarkdown"
-author: "Dasapta Erwin Irawan & Willem Vervoort"
+author: "Dasapta Erwin Irawan & R. Willem Vervoort"
 date: "7 January 2018"
 output: beamer_presentation
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = "C:/Users/rver4657/Google Drive/ITB_Usyd_Project2017/workshop_opendata")
 library(knitr)
 library(tidyverse)
 ```
@@ -20,27 +21,62 @@ This data set is provided to be used as an example data set for the course.
 * There are many in Northern NSW
 * They are characterised by significantly sandier sediments in the clay landscape.
 
-```{r PalaeoPic}
-include_graphics("images/PalaeoChannel.jpg")
+```{r PalaeoPic, echo=FALSE, out.width = "60%", fig.align='center'}
+include_graphics("C:/Users/rver4657/ownCloud/working/SSEAC/opendataworkshop2017/slides/images/PalaeoChannel.jpg")
 ```
 
 
 ## Description of the data set
 
-The data consists of:  
-- A range of different Electromagnetic Induction measurements taken at 10 m increments on a 370 m transect
-- Soil sample data at 6 locations along the transect, drilled to 13 m depth and sampled at 1 m increments
-- Bullet 3
+* A range of different Electromagnetic Induction measurements taken at 10 m increments on a 370 m transect  
+* Soil sample data were collected at 6 locations along the transect, drilled to 13 m depth and sampled at 1 m increments  
+* The soil sample data include particle sizes, Chloride and Electrical conductivity in a 1:5 soil to water solution  
 
-## Slide with R Output
-
-```{r cars, echo = TRUE}
-summary(cars)
+```{r PalaeoPic2, echo=FALSE, out.width = "50%", fig.align='center'}
+include_graphics("C:/Users/rver4657/ownCloud/working/SSEAC/opendataworkshop2017/slides/images/PalaeoFig2.jpeg")
 ```
 
-## Slide with Plot
+## A snapshot of the EM data
 
-```{r pressure}
-plot(pressure)
+```{r EMdataTable}
+
+EMdata34 <- read_csv("OriginalDataFolder/Willem/EM34.csv")
+print(EMdata34[1:5,1:5])
+```
+
+
+## A snapshot of the data 2
+
+```{r EMplot, echo = FALSE}
+ggplot(EMdata34, aes(Distance,H_10_10)) + geom_point(col="red") +
+  geom_line( col="red") +
+  geom_point(aes(Distance,V_10_10),col="blue") +
+  geom_line(aes(Distance,V_10_10),col="blue") +
+  theme(title = element_text(size = rel(2))) +
+  ylab("Apparent electrical conductivity") +
+  ggtitle("Horizontal and Vertical EM34 data at 10m spacing")
+```
+
+## Example data set and this course
+
+* We will use this example dataset throughout the course
+* example metadata are in the [readme file](https://drive.google.com/open?id=1h9jI_ez6YecU-m20wb-ji-NgzrRPkzel) on the google drive  
+* This describes both the provenance and summary of the data and a datadictionary that expresses the contents of the different files. 
+```{r metadata, echo=FALSE,  fig.align='center'}
+include_graphics("C:/Users/rver4657/ownCloud/working/SSEAC/opendataworkshop2017/slides/images/palaeometadata.jpeg")
+```
+
+
+## R markdown
+
+* All the slides for this workshop have been written using [Rmarkdown in Rstudio](http://rmarkdown.rstudio.com/)
+* Markdown in general, and Rmarkdown allow the combination of scripting and data analysis for presentations and reports
+* allows recording of workflows to for open science
+
+## Rmarkdown example
+
+* show separately in RStudio
+```{r rmarkdown, echo=FALSE,  fig.align='center'}
+include_graphics("C:/Users/rver4657/ownCloud/working/SSEAC/opendataworkshop2017/slides/images/rmarkdown.jpeg")
 ```
 
