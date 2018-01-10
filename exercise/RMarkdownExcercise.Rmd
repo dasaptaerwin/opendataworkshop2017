@@ -1,0 +1,89 @@
+---
+title: "Example Rmarkdown for data analysis"
+author: "Dasapta Erwin Irawan & Willem Vervoort"
+date: "10 January 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "C:/Users/rver4657/Google Drive/ITB_Usyd_Project2017/workshop_opendata")
+library(knitr)
+library(tidyverse)
+library(pander)
+```
+
+## R Markdown demo
+
+This is an R Markdown document. This is a useful tool to record workflows for open science, as you can show explanatory text, data, code for analyses and figures and tables. As a result the full workflow of the project can be described. You can use basic markdown coding, such as **bold** and *italic*, but you can also use more complex LateX scripting.
+
+Lists are also possible:
+
+* one  
+* two  
+    + three  
+    + four  
+
+# Higher level headings  
+## smaller headings are also possible  
+### such as subheadings  
+#### and sub sub headings :-)  
+Can also be quite easily defined. This means you can organise your document in the way you want. The final extension is that you can actually write your whole scientfic article using Rmarkdown and there are a whole set of templates for popular publishers is available in the package [**rticles**](https://github.com/rstudio/rticles)  
+
+### Excercise
+
+* Write a list of three of your favourite things, of which one is written in bold text  
+* Use a heading and a subheading to write: Methodology, Field Site as in a journal paper 
+
+## An example of a workflow
+
+We will use the example data set again, which we have described earlier.
+Here we are loading the particle size data, which is the most regular data to work with (the least missing data).
+
+The code below is reproduced in the pdf document, which is the output of the markdown ("rmd") file. It is reading in the data and showing a snapshot of the data (as a tibble).
+
+At the top of this document, I have specified the root directory where R should be looking for the data. Therefore, I only need to only indicate the specific folder and the file name.
+
+```{r ReadData}
+ParticleSize <- read_csv("OriginalDataFolder/Willem/SoilParticles.csv")
+print(ParticleSize)
+```
+
+## Including Plots
+
+The nice thing about Rmarkdown is that you can also include plots. For example we can repeat part of the plot that we have in the slides, showing the distribution of the clay percentage at each location.
+
+Here, I have added to the code the statement "echo=FALSE" for the chunk. This means that the code is actually not visible in the pdf document that you are reading, but it is in the original "rmd" file.
+
+```{r sand, echo=FALSE}
+p <- ggplot(ParticleSize, aes(-Depth_top,Clay_perc)) +
+  geom_point(pch=21, col="red") + geom_line(linetype=2) +
+  facet_wrap(~Distance) +
+  ylab("Percentage Clay") + xlab("Depth") + coord_flip()
+p
+```
+
+## Doing some calculations  
+We could now aggregate the data across depths or across locations and show the results in a table. Using the package `pander` in the Rmarkdown document allows you to make nice looking tables.
+
+```{r aggregation}
+ByDepth <- ParticleSize %>%
+  group_by(Depth_top) %>% 
+    summarise(Clay = mean(Clay_perc, na.rm=T)) %>% 
+  arrange(desc(Clay))
+
+pander(ByDepth)
+
+ByLoc <- ParticleSize %>%
+  group_by(Distance) %>% 
+    summarise(Clay = mean(Clay_perc, na.rm=T)) %>% 
+  arrange(desc(Clay))
+
+pander(ByLoc)
+```
+
+As you can see the whole workflow is completely clear from the code and the results that are presented, thus producing fully reproducible research.
+
+## Activity  
+
+* Create your own document to make a plot of the fine sand percentage and table with fine sand by depth and location from the data.
