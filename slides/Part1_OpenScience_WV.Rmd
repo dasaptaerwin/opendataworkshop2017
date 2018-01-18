@@ -80,6 +80,23 @@ or...I am using this piece of software,
 \end{column}
 \end{columns}
 
+## Vocabulary and data dictionary
+
+* The keywords for your metadata should originate from a **vocabulary** or an **ontology** 
+
+    + Ontology: set of controlled terms for keywords with a hierarchy: example [\textcolor{blue}{FOR codes}](http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E)
+    + A good ontology would have related terms, Wikipedia is an example of a system that uses an ontology
+    + A vocabulary is a more simple list of keywords, for example, most journals require you to choose from specific keywords when you submit a paper
+
+## Vocabulary and data dictionary
+
+* Data dictionary is simpler:  
+    + decribes columns in a data sheet
+    + describes layout of code structure
+    + describes files and folders
+* example data dictionary: [\textcolor{blue}{Readme file in example project}](https://drive.google.com/open?id=1h9jI_ez6YecU-m20wb-ji-NgzrRPkzel)
+
+
 ## The issue with verifiable research
 
 * The current process is peer review  

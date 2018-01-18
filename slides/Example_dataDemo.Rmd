@@ -71,7 +71,7 @@ include_graphics("C:/Users/rver4657/ownCloud/working/SSEAC/opendataworkshop2017/
 
 * All the slides for this workshop have been written using [Rmarkdown in Rstudio](http://rmarkdown.rstudio.com/)
 * Markdown in general, and Rmarkdown allow the combination of scripting and data analysis for presentations and reports
-* allows recording of workflows to for open science
+* allows recording of workflows for open science
 
 ## Rmarkdown example
 
