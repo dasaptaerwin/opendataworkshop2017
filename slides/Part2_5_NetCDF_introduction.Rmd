@@ -1,0 +1,46 @@
+---
+title: "Netcdf: combining spatial and temporal data with metadata"
+author: "Dasapta Erwin Irawan, R. Willem Vervoort & Gene Melzack"
+date: "19 January 2018"
+output: beamer_presentation
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(knitr)
+library(tidyverse)
+```
+
+## Storing and sharing spatio-temporal data
+
+* Spatial and temporal data are challenging to store  
+* It is 2 or 3 dimensional and can even be 4 dimensional (for example groundwater data)  
+* We could use complex spreadsheets to share data, or build interconnected text files (by site, by time)  
+    * This is not necessarily easy to share, you would need an additional read me file to describe the data (i.e. it is not self-describing)  
+    * Is not necessarily system independent (proprietry software)  
+* Solution: NetCDF formats
+
+## NetCDF: history and principles
+
+* NetCDF is the most widely used file format in climate and global studies
+    * Almost all Global climate change model data is in NetCDF
+    * Specifically good for multi-dimensional arrays
+* Key strenghts are that NetCDF files are *self-describing* and *machine independent*  
+* Libraries and protocols are maintained by [\textcolor{blue}{Unidata}](https://www.unidata.ucar.edu/software/netcdf/)  
+* The latest protocol is NetCDF4, but older versions NetCDF3 are still around  
+* The typical file extension used for NetCDF files is **.nc**  
+* We will use the package **`ncdf4`** in R to read and create NetCDF4 files 
+
+## NetCDF: Self-describing
+
+* Self-describing means that within the file the metadata are included
+* Here is an example from ET data from [\textcolor{blue}{NCI Thredds server ET data}](http://geonetworkrr9.nci.org.au/geonetwork/srv/eng/catalog.search?node=srv#/metadata/f749f8c8-b1a3-4125-a7ea-178fd4a31307)
+* This is output from the [\textcolor{blue}{AWRA model}](http://www.bom.gov.au/water/landscape/)
+
+```{r readnc, output.size=1}
+library(ncdf4)
+
+nc_example <- nc_open("../exercise/netcdf_data/AWRA05_data.nc")
+print(nc_example)
+```

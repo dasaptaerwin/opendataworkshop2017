@@ -1,7 +1,7 @@
 ---
 title: "A research data management plan"
-author: "Dasapta Erwin Irawan & R. Willem Vervoort"
-date: "5 January 2018"
+author: "Dasapta Erwin Irawan, R. Willem Vervoort & Gene Melzack"
+date: "19 January 2018"
 output: beamer_presentation
 ---
 
