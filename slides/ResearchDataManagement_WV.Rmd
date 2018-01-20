@@ -1,7 +1,7 @@
 ---
 title: "A research data management plan"
-author: "Dasapta Erwin Irawan & Willem Vervoort"
-date: "5 January 2018"
+author: "Dasapta Erwin Irawan, R. Willem Vervoort & Gene Melzack"
+date: "19 January 2018"
 output: beamer_presentation
 ---
 
@@ -14,38 +14,54 @@ library(tidyverse)
 ## Research data management plans
 
 What we have learned so far:  
-* Increasing data and methods publishing can really move science forward  
-    + It will help you as a researcher (you can find data and use methods easier)  
-    + It will help the whole science community  
-    + It might resolve some of the issues around peer review and costs of publishing  
-* Good meta data are the key for data re-use and discovery
+
+* Increasing data and methods publishing can really move science forward
+     + It will help you as a researcher (you can find data and use methods easier)    
+     + It will help the whole science community    
+     + It might resolve some of the issues around peer review and costs of  publishing    
+   
+* Good meta data are the key for data re-use and discovery  
 * Writing meta data is quite a job, especially after the fact  
-* We need to develop strategies and methods to tackle this when we start!
+* We need to develop strategies and methods to tackle this when we start!  
 
-* **Research data management plans**
+*  **Research data management plans**
 
 
-## What are the main componets of a research data management plan?
+## What are the main components of a research data management plan?
 
-Unsuprisingly: **Metadata**
-- Who are involved (who owns the data)
-- How you collect the data
-- How you consistently describe the data content
-- Where you store the data and how you store the data (format and file structure)
-- How you plan to curate the data (where is the long-term home of the data)
+Unsurprisingly: **Metadata**  
+
+- Who are involved (who owns the data): Administration and data ownership  
+- How you collect the data: Data collection  
+- How you consistently describe the data content: Data documentation
+- Where you store the data and how you store the data (format and file structure): Data storage and data documentation
+- How you plan to curate the data (where is the long-term home of the data): Data storage  
+
 
 ## Schematic of a research data management plan 
 
-* [The University of Sydney Research Data Management Plan](https://library.sydney.edu.au/research/data-management/research-data-management-plans.html)
+https://dmponline.dcc.ac.uk
 
-```{r RDMP}
+## The University of Sydney
+
+* [\textcolor{blue}{The University of Sydney Research Data Management Plan}](https://library.sydney.edu.au/research/data-management/research-data-management-plans.html)
+
+```{r RDMP, out.width = "75%"}
 include_graphics("images/rdmp.jpg")
 ```
 
-* The RDMP at USYD is currently being revised to be more focussed on the research data management
+* The RDMP at USYD is currently being revised to be more focussed on the actual research data management
 * A living document, a "readme.txt" for the project.
 
-## Best practice in research data management
+## Examples of research data management plans
 
-* [Best practice](https://www.dataone.org/best-practices/metadata)
-* Go through website
+* [\textcolor{blue}{Best practice dataone.org}](https://www.dataone.org/best-practices/metadata): Go through website
+
+* Simple Research Data Management Plan: [\textcolor{blue}{Tier Protocol}](http://www.projecttier.org/tier-protocol/process/)
+
+* Choosing the right keywords for your project and data is crucial  
+* For the research data management plan: this is the source  
+
+    + feeds into all the further "downstream" metadata  
+
+

@@ -1,7 +1,7 @@
 ---
 title: "Open and Reproducible research: the new frontier"
-author: "Dasapta Erwin Irawan & Willem Vervoort"
-date: "4 January 2018"
+author: "Dasapta Erwin Irawan, R. Willem Vervoort & Gene Melzack"
+date: "19 January 2018"
 output: 
   beamer_presentation: 
     keep_tex: no
@@ -79,6 +79,23 @@ or...I am using this piece of software,
   \includegraphics[width=1\textwidth]{images/Types-of-Metadata_03.png}
 \end{column}
 \end{columns}
+
+## Vocabulary and data dictionary
+
+* The keywords for your metadata should originate from a **vocabulary** or an **ontology** 
+
+    + Ontology: set of controlled terms for keywords with a hierarchy: example [\textcolor{blue}{FOR codes}](http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E)
+    + A good ontology would have related terms, Wikipedia is an example of a system that uses an ontology
+    + A vocabulary is a more simple list of keywords, for example, most journals require you to choose from specific keywords when you submit a paper
+
+## Vocabulary and data dictionary
+
+* Data dictionary is simpler:  
+    + decribes columns in a data sheet
+    + describes layout of code structure
+    + describes files and folders
+* example data dictionary: [\textcolor{blue}{Readme file in example project}](https://drive.google.com/open?id=1h9jI_ez6YecU-m20wb-ji-NgzrRPkzel)
+
 
 ## The issue with verifiable research
 
@@ -189,7 +206,7 @@ Over the next 4 days, we will teach you about:
 There is already a lot out there! (althought not everything is free)
 
 * Data journals, for example [Data in Brief](https://www.journals.elsevier.com/data-in-brief) and [Data](http://www.mdpi.com/journal/data), and there is a growing list
-* Data repositories, for example [PANGEA](https://www.pangaea.de/), but here is [a long list](http://oad.simmons.edu/oadwiki/Data_repositories)
+* Data repositories, for example [PANGEA](https://www.pangaea.de/), but here is [a long list](https://www.re3data.org/browse/by-subject/)
     + The University of Sydney also runs its [own data repository](https://ses.library.usyd.edu.au/)
 * Journals to publish workflows, for example [MethodsX](https://www.journals.elsevier.com/methodsx)
 * Full open science repositories, such as [Zenodo](https://zenodo.org/) and [OSF](https://www.osf.io/)
