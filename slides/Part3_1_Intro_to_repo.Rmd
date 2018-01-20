@@ -113,7 +113,11 @@ Here's the list of your projects
 
 ![analytics](images/3_1_9_metric.png "Analytics to measure your visitors")
 
+## Exercise
 
+- setup your own project folder
+- upload your data and add a description
+- explore other participant's repository and fork
 
 
 
