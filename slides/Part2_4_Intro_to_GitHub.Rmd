@@ -1,0 +1,95 @@
+---
+title: "Introduction to GitHub"
+author: "Dasapta Erwin Irawan, R. Willem Vervoort & Gene Melzack"
+date: "20 January 2018"
+output: beamer_presentation
+---
+
+## Let's recap
+
+So far, you have learned about:
+
+1. open data
+2. research data management
+
+## In this session you will learn about
+
+- Git and GitHub repository,
+- What it does and how it can help you, 
+- How to use it to:
+
+    - host your documents 
+    - collaborate 
+    - maximize version control
+
+## What is `Git`
+
+
+## What is `GitHub`
+
+
+## What is `version control`
+
+
+## What are the components of a GitHub repository
+
+- local repository (located in your hard drive)
+- remote repository (located in your GitHub account)
+
+## Basic command
+
+## Setting up a new repository
+
+
+
+![landing page](images/3_1_2_loginorcid.png "ORCID login page")
+
+
+## Repository page
+
+![repository_page](images/3_1_6_repopage.png "Repository landing page")
+
+
+## Project description (wiki)
+
+- You can add description or a set of description in you project, in [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#images).
+- In fact, you could write the whole report directly in you project page.
+
+## Project description (wiki) (2)
+
+![project_wiki](images/3_1_8_projectwiki.png "Description page")
+
+## Integrate other services (if you have one)
+
+- If you maintain other service previously, you can add it to your project repository.
+- You can choose which folder to correspond to your project.
+
+## Integrate other services (if you have one) (2)
+
+![add_ons](images/3_1_5_addonservices.png "add on services")
+
+## Measuring visitors
+
+- You can observe your visitors and how you can amplify your impact to the society.
+- The sum of your visitor, what platform that drive them to visit, etc.
+
+## Measuring visitors (2)
+
+![analytics](images/3_1_9_metric.png "Analytics to measure your visitors")
+
+## Exercise
+
+- setup your own project folder
+- upload your data and add a description
+- explore other participant's repository and fork
+
+
+
+
+
+
+
+
+
+
+
