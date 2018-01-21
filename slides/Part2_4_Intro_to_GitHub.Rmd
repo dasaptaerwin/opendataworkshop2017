@@ -24,64 +24,77 @@ So far, you have learned about:
 
 ## What is `Git`
 
-
-## What is `GitHub`
-
+- `Git` is a small - open source - command line software to implement a version control system. 
+- It's available on Linux, Mac and Windows. 
 
 ## What is `version control`
 
+- `version control' is a feature to save a history of changes (from you or other member of the team) to a file or directory/folder. 
+- it's similar to `save as` command without making a new file.
+
+## Download and installation
+
+- Visit https://git-scm.com/ 
+- download Git and
+- install it.
+
+## What is `GitHub`
+
+- [GitHub](github.com) or Git-Hub is a platform to store your `Git` materials online.
+- GitHub also performs as a `hub` to connect Git users. Think of it as the Facebook of programmers.
+- GitHub is free, but it provides paid account for enterprise users.
+- All materials on GitHub have a persistent link and open to public. 
+
+## What is `GitHub` (2)
+
+- Each user makes and maintains one or more repositories.
+- If you like someone's work on GitHub, you could clone or fork it (copy it to your own repository) and manage it.
+- GitHub saves the history related to the changes of your files, interactions between repositories.
 
 ## What are the components of a GitHub repository
 
 - local repository (located in your hard drive)
 - remote repository (located in your GitHub account)
 
+## Familiarize yourself with `terminal app`
+
+- if you're on Windows, the terminal is `Windows Prompt`, usually it's located in Windows directory.
+- if you're on Linux or Mac, fire up `terminal`.
+- type your command after `>` symbol.
+
 ## Basic command
+
+- `git init`: start a new repository from scratch
+- `git pull`: download all files in a remote GitHub.com repository
+- `git commit`: to make changes on a file or set of files 
+- `git push`: to push all files from local to remote repository
 
 ## Setting up a new repository
 
+- put yourself to the designated folder.
+- for instance, /project1
+- type `md /project1`
+- type `cd /project1`
+- type `git init`
+- ...
+
+## Cloning or pulling a remote repository
+
+If you have created a local repository then `push` (upload) it to remote repository (GitHub.com), then you want to work with another computer, then you can do `git pull`.
+
+- make a folder
+- move to that folder
+- type `git pull <online link>`
 
 
-![landing page](images/3_1_2_loginorcid.png "ORCID login page")
 
 
-## Repository page
-
-![repository_page](images/3_1_6_repopage.png "Repository landing page")
-
-
-## Project description (wiki)
-
-- You can add description or a set of description in you project, in [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#images).
-- In fact, you could write the whole report directly in you project page.
-
-## Project description (wiki) (2)
-
-![project_wiki](images/3_1_8_projectwiki.png "Description page")
-
-## Integrate other services (if you have one)
-
-- If you maintain other service previously, you can add it to your project repository.
-- You can choose which folder to correspond to your project.
-
-## Integrate other services (if you have one) (2)
-
-![add_ons](images/3_1_5_addonservices.png "add on services")
-
-## Measuring visitors
-
-- You can observe your visitors and how you can amplify your impact to the society.
-- The sum of your visitor, what platform that drive them to visit, etc.
-
-## Measuring visitors (2)
-
-![analytics](images/3_1_9_metric.png "Analytics to measure your visitors")
 
 ## Exercise
 
-- setup your own project folder
-- upload your data and add a description
-- explore other participant's repository and fork
+- setup your own GitHub repository 
+- make a commit and push 
+- choose a repo and fork it
 
 
 
