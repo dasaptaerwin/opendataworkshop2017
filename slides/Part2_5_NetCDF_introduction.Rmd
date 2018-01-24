@@ -3,15 +3,19 @@ title: "Netcdf: combining spatial and temporal data with metadata"
 author: "Dasapta Erwin Irawan, R. Willem Vervoort & Gene Melzack"
 date: "22 January 2018"
 output: beamer_presentation
+fontsize: 12pt
 ---
 
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-knitr::opts_knit$set(root.dir = "C:/Users/rver4657/Google Drive/ITB_Usyd_Project2017/workshop_opendata")
+```{r setup, echo=FALSE, message =F}
 library(knitr)
 library(tidyverse)
 library(pander)
+knitr::opts_chunk$set(echo = TRUE, tidy=TRUE)
+knitr::opts_knit$set(root.dir = "C:/Users/rver4657/Google Drive/ITB_Usyd_Project2017/workshop_opendata")
+options(width = 50)
+
+
 ```
 
 ## Storing and sharing spatio-temporal data
@@ -42,10 +46,15 @@ library(pander)
 
 ## netcdf metadata AWRA model
 
+```{r pathdef, echo=F}
+path <- "C:/Users/rver4657/ownCloud/working/SSEAC/opendataworkshop2017/exercise/netcdf_data"
+```
+
 ```{r readnc, echo=T}
 library(ncdf4)
 
-nc_example <- nc_open("C:/Users/rver4657/ownCloud/working/SSEAC/opendataworkshop2017/exercise/netcdf_data/AWRA05_data.nc")
+nc_example <- 
+  nc_open(paste(path,"AWRA05_data.nc",sep="/"))
 print(nc_example)
 ```
 
@@ -75,70 +84,5 @@ tunits$value
 
 * We will be using the palæo-channel dataset that we have introduced on day 1  
 * To review: this dataset consists of samples taken on a single date on 38 locations on a transect  
-* To start of, we will transfer the particle size data to a netcdf (see below)
-
-```{r PSA_nc, echo = T, message = F}
-PSAdata <- read_csv("OriginalDataFolder/Willem/Soilparticles.csv")
-pander(PSAdata[1:5,1:5])
-```
-
-## Defining the spatial and temporal dimensions
-
-```{r defineDims, echo = TRUE}
-library(ncdf4)
-
-# define dimensions
-londim <- ncdim_def("lon","degrees_east",
-                    as.double(unique(PSAdata$Long)))
-latdim <- ncdim_def("lat","degrees_north",
-                    as.double(unique(PSAdata$Lat))) 
-timedim <- ncdim_def("time","days sine 2001-01-21",
-                     as.double(1))
-depthdim <- ncdim_def("Depth","m", 
-                      as.double(unique(PSAdata$Depth_top)))
-```
-
-* We actually don't need the time dimension, but I am putting it in as an example
-
-## define variables
-
-```{r defineVars}
-fillvalue <- 1e32
-dlname <- "Percent Clay"
-clay_def <- ncvar_def("clay_perc","%",
-                      list(londim,latdim,timedim,depthdim),fillvalue,
-                      dlname, prec="single")
-dlname <- "Percent Silt"
-silt_def <- ncvar_def("silt_perc","%",
-                      list(londim,latdim,timedim,depthdim),fillvalue,
-                      dlname, prec="single")
-dlname <- "Percent Fine Sand"
-fsand_def <- ncvar_def("fsand_perc","%",
-                       list(londim,latdim,timedim,depthdim),fillvalue,
-                       dlname,prec="single")
-dlname <- "Percent Coarse Sand"
-csand_def <- ncvar_def("csand_perc","%",
-                       list(londim,latdim,timedim,depthdim),fillvalue,
-                       dlname,prec="single")
-dlname <- "Percent Fine Gravel"
-fgravel_def <- ncvar_def("fgravel_perc","%",
-                         list(londim,latdim,timedim,depthdim),fillvalue,
-                         dlname,prec="single")
-dlname <- "Percent Coarse Gravel"
-cgravel_def <- ncvar_def("cgravel_perc","%",
-                         list(londim,latdim,timedim,depthdim),fillvalue,
-                         dlname,prec="single")
-```
-
-
-## create netCDF file and put arrays
-
-```{r makenc}
-ncfname <- "PCSoildata_ncdf4.nc"
-ncout <- nc_create(ncfname,list(clay_def,silt_def,fsand_def,csand_def,
-                                fgravel_def, cgravel_def),force_v4=T)
-```
-
-* Need to first put data into arrays
-
+* To start of, we will transfer the particle size data to a netcdf (see additional pdf)
 

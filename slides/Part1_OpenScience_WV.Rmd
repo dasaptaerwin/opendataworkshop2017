@@ -206,7 +206,7 @@ Over the next 4 days, we will teach you about:
 There is already a lot out there! (althought not everything is free)
 
 * Data journals, for example [Data in Brief](https://www.journals.elsevier.com/data-in-brief) and [Data](http://www.mdpi.com/journal/data), and there is a growing list
-* Data repositories, for example [PANGEA](https://www.pangaea.de/), but here is [a long list](https://www.re3data.org/browse/by-subject/)
+* Data repositories, for example [PANGAEA](https://www.pangaea.de/), but here is [a long list](https://www.re3data.org/browse/by-subject/)
     + The University of Sydney also runs its [own data repository](https://ses.library.usyd.edu.au/)
 * Journals to publish workflows, for example [MethodsX](https://www.journals.elsevier.com/methodsx)
 * Full open science repositories, such as [Zenodo](https://zenodo.org/) and [OSF](https://www.osf.io/)
