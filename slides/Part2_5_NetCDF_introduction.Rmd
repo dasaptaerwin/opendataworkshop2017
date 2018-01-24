@@ -1,15 +1,21 @@
 ---
 title: "Netcdf: combining spatial and temporal data with metadata"
 author: "Dasapta Erwin Irawan, R. Willem Vervoort & Gene Melzack"
-date: "19 January 2018"
+date: "22 January 2018"
 output: beamer_presentation
+fontsize: 12pt
 ---
 
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+```{r setup, echo=FALSE, message =F}
 library(knitr)
 library(tidyverse)
+library(pander)
+knitr::opts_chunk$set(echo = TRUE, tidy=TRUE)
+knitr::opts_knit$set(root.dir = "C:/Users/rver4657/Google Drive/ITB_Usyd_Project2017/workshop_opendata")
+options(width = 50)
+
+
 ```
 
 ## Storing and sharing spatio-temporal data
@@ -36,11 +42,47 @@ library(tidyverse)
 
 * Self-describing means that within the file the metadata are included
 * Here is an example from ET data from [\textcolor{blue}{NCI Thredds server ET data}](http://geonetworkrr9.nci.org.au/geonetwork/srv/eng/catalog.search?node=srv#/metadata/f749f8c8-b1a3-4125-a7ea-178fd4a31307)
-* This is output from the [\textcolor{blue}{AWRA model}](http://www.bom.gov.au/water/landscape/)
+* The next slide is output from the [\textcolor{blue}{AWRA model}](http://www.bom.gov.au/water/landscape/)
 
-```{r readnc, output.size=1}
+## netcdf metadata AWRA model
+
+```{r pathdef, echo=F}
+path <- "C:/Users/rver4657/ownCloud/working/SSEAC/opendataworkshop2017/exercise/netcdf_data"
+```
+
+```{r readnc, echo=T}
 library(ncdf4)
 
-nc_example <- nc_open("../exercise/netcdf_data/AWRA05_data.nc")
+nc_example <- 
+  nc_open(paste(path,"AWRA05_data.nc",sep="/"))
 print(nc_example)
 ```
+
+## NetCDF: Self-describing
+
+* The meta data and the description of the data are included in the file
+* Each variable has to have information about units and a description
+
+```{r ncInfo, echo=T}
+# Longitude
+lon <- ncvar_get(nc_example,"lon")
+nlon <- dim(lon)
+head(lon)
+# units of time
+tunits <- ncatt_get(nc_example,"time","units")
+tunits$value
+
+```
+
+## NetCDF: Machine independent
+
+* Because the algorithms to write and read netcdf are written in C and maintained by [\textcolor{blue}{unitdata}](https://www.unidata.ucar.edu/software/netcdf/) it can be used with any operating system.  
+* It is open source, so you can recompile if needed  
+* However, most scripting languages have tools to extract and manage netcdf files.  
+
+## An example: creating a netcdf file using R
+
+* We will be using the palæo-channel dataset that we have introduced on day 1  
+* To review: this dataset consists of samples taken on a single date on 38 locations on a transect  
+* To start of, we will transfer the particle size data to a netcdf (see additional pdf)
+

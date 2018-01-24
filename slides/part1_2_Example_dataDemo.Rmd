@@ -38,7 +38,7 @@ include_graphics("C:/Users/rver4657/ownCloud/working/SSEAC/opendataworkshop2017/
 
 ## A snapshot of the EM data
 
-```{r EMdataTable}
+```{r EMdataTable, echo = T}
 
 EMdata34 <- read_csv("OriginalDataFolder/Willem/EM34.csv")
 print(EMdata34[1:5,1:5])
