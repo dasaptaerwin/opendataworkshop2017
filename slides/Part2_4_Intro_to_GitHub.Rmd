@@ -1,0 +1,108 @@
+---
+title: "Introduction to GitHub"
+author: "Dasapta Erwin Irawan, R. Willem Vervoort & Gene Melzack"
+date: "20 January 2018"
+output: beamer_presentation
+---
+
+## Let's recap
+
+So far, you have learned about:
+
+1. open data
+2. research data management
+
+## In this session you will learn about
+
+- Git and GitHub repository,
+- What it does and how it can help you, 
+- How to use it to:
+
+    - host your documents 
+    - collaborate 
+    - maximize version control
+
+## What is `Git`
+
+- `Git` is a small - open source - command line software to implement a version control system. 
+- It's available on Linux, Mac and Windows. 
+
+## What is `version control`
+
+- `version control' is a feature to save a history of changes (from you or other member of the team) to a file or directory/folder. 
+- it's similar to `save as` command without making a new file.
+
+## Download and installation
+
+- Visit https://git-scm.com/ 
+- download Git and
+- install it.
+
+## What is `GitHub`
+
+- [GitHub](github.com) or Git-Hub is a platform to store your `Git` materials online.
+- GitHub also performs as a `hub` to connect Git users. Think of it as the Facebook of programmers.
+- GitHub is free, but it provides paid account for enterprise users.
+- All materials on GitHub have a persistent link and open to public. 
+
+## What is `GitHub` (2)
+
+- Each user makes and maintains one or more repositories.
+- If you like someone's work on GitHub, you could clone or fork it (copy it to your own repository) and manage it.
+- GitHub saves the history related to the changes of your files, interactions between repositories.
+
+## What are the components of a GitHub repository
+
+- local repository (located in your hard drive)
+- remote repository (located in your GitHub account)
+
+## Familiarize yourself with `terminal app`
+
+- if you're on Windows, the terminal is `Windows Prompt`, usually it's located in Windows directory.
+- if you're on Linux or Mac, fire up `terminal`.
+- type your command after `>` symbol.
+
+## Basic command
+
+- `git init`: start a new repository from scratch
+- `git pull`: download all files in a remote GitHub.com repository
+- `git commit`: to make changes on a file or set of files 
+- `git push`: to push all files from local to remote repository
+
+## Setting up a new repository
+
+- put yourself to the designated folder.
+- for instance, /project1
+- type `md /project1`
+- type `cd /project1`
+- type `git init`
+- ...
+
+## Cloning or pulling a remote repository
+
+If you have created a local repository then `push` (upload) it to remote repository (GitHub.com), then you want to work with another computer, then you can do `git pull`.
+
+- make a folder
+- move to that folder
+- type `git pull <online link>`
+
+
+
+
+
+## Exercise
+
+- setup your own GitHub repository 
+- make a commit and push 
+- choose a repo and fork it
+
+
+
+
+
+
+
+
+
+
+
