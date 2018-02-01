@@ -1,6 +1,6 @@
 ---
 title: "Image Exercise"
-author: "Dasapta Erwin Irawan & Willem Vervoort"
+author: "Dasapta Erwin Irawan, Willem Vervoort and Gene Melzack"
 date: "Today's date is `r format(Sys.Date(),'%d-%m-%Y')`"
 output: 
     pdf_document:
@@ -17,8 +17,76 @@ knitr::opts_knit$set(root.dir =  "c:/users/rver4657/owncloud/working/SSEAC/opend
 
 ## Introduction
 
-To demonstrate the overall process of collecting data, creating reproducible research, and publishing data  we have designed an exercise using simple images that we have collected during our small field excursion. While the current data are arbritrary, they contain several aspects that are useful to demonstrate steps in the open research data process.
+To demonstrate the overall process of collecting data, creating reproducible research, and publishing data  we have designed an exercise that will allow you to plot the results of the vegetation images that we have collected during our small field excursion. While the current data are arbritrary, they contain several aspects that are useful to demonstrate steps in the open research data process.
 R markdown is a nice way to actually present your reproducible research, as it allows you to record both the code and the text.
+
+In this exercise, we will do three separate components:  
+
+1. Learn how to plot spatial data and convert from latitude and longitude to eastings and northings  
+2. Understand how to extract the different colour channels from photos and calculate GCC following the paper by [Moore et al (2017)](https://drive.google.com/open?id=1K98yqDwf7P186wZITbM7sCTamo0Doh52)  
+3. Plot the GCC values in space to make a map of the collected data.
+
+Here we will use some example data and do some exercises, after which we can apply this to the field data we will collect on Thursday.
+
+## Plotting spatial data
+
+Spatial data is generally in latitudes and longitudes. This can be both in decimal form, such as in Google maps, or in degree form (which is much of the older data). As latitudes and longitudes are related to the globe, to calculate actual distances and to display correct spatial relationships, the data needs to be projected (or flattened). For projections we need to use the right coordinate system. If anyone of you has worked with GIS, then this is old news. 
+
+Here we first use some example data from Australia:
+
+* This file AusLatLongData.txt is a simple comma delimited text file that has decimal latitudes and longitudes in and around Sydney.
+
+We first need to load the data and we can assign a spatial coordinate system to it that indicates that it is in latitude and longitudes. We can then plot the data in these coordinates. 
+
+We also need a few libraries: rgdal, sp
+
+```{r AusLLData}
+# library
+library(tidyverse)
+library(rgdal)
+library(sp)
+
+# root dir
+root <- "C:/Users/rver4657/Google Drive/ITB_Usyd_Project2017/workshop_opendata/OriginalDataFolder"
+# read in the data
+Sydney <- read.csv(paste(root,"AusLatLongData.txt",sep="/"))
+
+# create Spatial points data frame using package sp and insert coordinate reference
+coord_ref <- CRS("+proj=longlat +datum=WGS84")
+Sydney_sp <- SpatialPoints(coords=Sydney[,2:3], proj4string = coord_ref)
+# we can plot this
+p <- ggplot(aes(x = Longitude, y = Latitude), data = as.data.frame(Sydney_sp)) + geom_point(col="red", size=4) +
+  geom_text(aes(label = Sydney[,1]))
+print(p)
+
+```
+
+However, this does not reflect the real distances, for this we would like to convert the latitudes and longitudes into eastings and northings. This is a projection and we need to use the correct projection for the Sydney area.
+For this we simply use the correct epsg code using [\textcolor{blue}{the spatial reference system}](http://spatialreference.org), which for Sydney is zone 56 or epsg code [\textcolor{blue}{28356}](http://spatialreference.org/ref/epsg/28356/).
+
+We can now simply calculate the distance between Abbotsford and the airport in m.
+
+```{r projection}
+# reproject
+Sydney_pr <- spTransform(Sydney_sp, CRS("+init=epsg:28356")) # reproject
+
+# plot again
+p <- ggplot(aes(x = Longitude, y = Latitude), data = as.data.frame(Sydney_pr)) + geom_point(col="red", size=4) +
+  geom_text(aes(label = Sydney[,1])) +
+  xlab("Easting") + ylab("Southing")
+print(p)
+
+
+# distance Abbotsford (2nd row) to Airport (3rd row)
+Dist <- sqrt((Sydney_pr@coords[2,1]-Sydney_pr@coords[3,1])^2 + 
+            (Sydney_pr@coords[2,2]-Sydney_pr@coords[3,2])^2)
+paste("the distance between Abbotsford and Sydney airpoirt =",round(Dist,2), "m")
+
+```
+
+## Exercise
+
+- Repeat the above analysis using the Bandung data that is also on the drive. Note that this data does not have any named labels, just row numbers.
 
 ## Image analysis
 In the field excursion we collected some images, which we downloaded into a shared directory. Here we will do a simple analysis to extract the red and blue bands and calulate the average ratio of the red and blue bands, because we don't actually have access to any Near-Infrared to mimic NDVI.
@@ -55,7 +123,7 @@ ggplot(image_df,aes(value,fill=channel))+
 
 ## Creating the average R over R + B ratio
 
-The next step is to calculate the R/(R + B) values. For this we first need to *spread* the data.frame to create separate columns for R, G and B, and in the mean time dropping the column cc using `mutate()`.  
+The next step is to calculate the R/(R + B) values, which as outlined represent vegetation growth (Moore et al. 2017). For this we first need to *spread* the data.frame to create separate columns for R, G and B, and in the mean time dropping the column cc using `mutate()`.  
 
 ```{r spread}
 image_df2 <- image_df %>% 
@@ -99,8 +167,10 @@ library(leaflet)
 We can now read all the jpg files from a directory, and extract the information
 
 ```{r plotjpglocations}
-files <- list.files(path = "imageanalysis", pattern = "*.jpg")
-dat <- read_exif(path = paste("imageanalysis/", files,sep=""))
+files <- list.files(path = "imageanalysis/vegetation_images", 
+                    pattern = "*.jpg")
+dat <- read_exif(path = paste("imageanalysis/vegetation_images/",
+                              files,sep=""))
 names(dat)
 
 ```
@@ -111,11 +181,39 @@ plot(dat$GPSLongitude, dat$GPSLatitude)
 
 ```
 
-Or, nicer plot them onto some google imagery.
+## Calculate GCC values and plot
 
-```{r googleplot, fig.cap = "plotting the image locations onto a google image", eval = FALSE}
-# not run
-leaflet(dat) %>%
-  addProviderTiles("Esri.WorldImagery") %>%
-  addMarkers(~ GPSLongitude, ~ GPSLatitude)  
+The final step is to calculate the GCC values for all the images and plot these on the map. We will do this by running a loop over files, and reusing the code from above inside the loop (but dropping all the plotting and looking at the files)
+
+```{r plotGCC}
+Store <- rep(0,length(files))
+
+for (i in 1:length(files)) {
+  our_image <- load.image(paste("imageanalysis/vegetation_images/",
+                              files[i],sep=""))
+
+  image_df <- as.data.frame(our_image)
+  image_df <- mutate(image_df,channel=factor(cc,labels=c('R','G','B')))
+  # spread
+  image_df2 <- image_df %>% 
+      mutate(cc = NULL) %>%
+      spread(key = channel, value = value)
+  # mutate
+  image_df3 <- image_df2 %>%
+    mutate(ratio = R/(R+B))
+  # calculate the mean
+  avg_ratio <- mean(image_df3$ratio, na.rm=T)
+  # Store
+  Store[i] <-round(avg_ratio,2)
+}
+
+plotdat <- data.frame(Latitude = dat$GPSLatitude,
+                      Longitude = dat$GPSLongitude,
+                      GCC <- Store)
+
+
+# now plot values of Store
+p <- ggplot(plotdat, aes(x=Longitude, y = Latitude)) +
+  geom_point(aes(colour=GCC, size=GCC))
+p
 ```
