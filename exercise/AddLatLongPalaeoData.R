@@ -88,8 +88,8 @@ soil_test <- list()
 for (i in 1:length(sites)) {
   soil_test[[i]] <- soil %>%
     filter(Distance == sites[i]) %>%
-    mutate(Lat = new_res@coords[i,1],
-           Long = new_res@coords[i,2])
+    mutate(Long = new_res@coords[i,1],
+           Lat = new_res@coords[i,2])
 }
 
 soil_new <- do.call(rbind,soil_test)
@@ -102,8 +102,8 @@ mois_test <- list()
 for (i in 1:length(sites)) {
   mois_test[[i]] <- moisture %>%
     filter(Distance == sites[i]) %>%
-    mutate(Lat = new_res@coords[i,1],
-           Long = new_res@coords[i,2])
+    mutate(Long = new_res@coords[i,1],
+           Lat = new_res@coords[i,2])
 }
 
 moisture_new <- do.call(rbind,mois_test)
@@ -115,8 +115,8 @@ cl_test <- list()
 for (i in 1:length(sites)) {
   cl_test[[i]] <- chloride %>%
     filter(Distance == sites[i]) %>%
-    mutate(Lat = new_res@coords[i,1],
-           Long = new_res@coords[i,2])
+    mutate(Long = new_res@coords[i,1],
+           Lat = new_res@coords[i,2])
 }
 
 chloride_new <- do.call(rbind,cl_test)
@@ -131,8 +131,8 @@ write_csv(chloride_new,"Willem/Chloride.csv")
 EM34 <- read_csv("Willem/EM34.csv")
 
 EM34_new <- EM34 %>%
-    mutate(Lat = new_res_all@coords[,1],
-           Long = new_res_all@coords[,2])
+    mutate(Long = new_res_all@coords[,1],
+           Lat = new_res_all@coords[,2])
 
 # rearrange columns 
 EM34_new <- EM34_new[, c(23,24,1:22)]
@@ -163,8 +163,8 @@ new_res_EM38 <- spTransform(newxy_EM38, CRS("+proj=longlat +datum=WGS84"))
 new_res_EM38
 
 EM38_new <- EM38 %>%
-  mutate(Lat = new_res_EM38@coords[,1],
-         Long = new_res_EM38@coords[,2])
+  mutate(Long = new_res_EM38@coords[,1],
+         Lat = new_res_EM38@coords[,2])
 
 # rearrange columns 
 EM38_new <- EM38_new[, c(10,11,1:9)]
