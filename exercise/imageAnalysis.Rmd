@@ -149,19 +149,18 @@ round(avg_ratio,2)
 
 ## extracting the latitude and longitude data and plotting
 
-A nice feature of modern digital photography is that it directly comes with a lot of metadata including the latitude and longitude of where the photo was taken, the metadata on the images is called the **exif data**. There is a package in R that does this quite nicely, which is called `exifr`. There is additional package that allows plotting onto google map images. This is called `leaflet`.
+A nice feature of modern digital photography is that it directly comes with a lot of metadata including the latitude and longitude of where the photo was taken, the metadata on the images is called the **exif data**. There is a package in R that does this quite nicely, which is called `exifr`. 
 
 There is one small problem with `exifr` on Windows. The package assumes that you have the **perl** computer scripting language (similar to R) installed on your computer. This is the case on all Apple computers, but not on Windows. So on windows you have to first install Perl from:[http://strawberryperl.com/](http://strawberryperl.com/). 
-Then you can installl `leaflet` and `exifr`.
+Then you can install `exifr`.
 
 ```{r install_exifr}
-#install.packages(c("exifr", "leaflet"))
+#install.packages("exifr")
 # you have to install Perl on windows, as this is not included, it is included on Apple
 # then on windows point exifr to perl dir
 #options(exifr.perlpath='c:/strawberry')
 # then load the libraries into your workspace
 library(exifr)
-library(leaflet)
 ```
 
 We can now read all the jpg files from a directory, and extract the information
@@ -206,6 +205,7 @@ for (i in 1:length(files)) {
   # Store
   Store[i] <-round(avg_ratio,2)
 }
+pander(Store)
 
 plotdat <- data.frame(Latitude = dat$GPSLatitude,
                       Longitude = dat$GPSLongitude,

@@ -121,7 +121,8 @@ or...I am using this piece of software,
 
 What would ideal open, reproducible research look like?
 
-* all data and analyses should be open and accessible  
+* all data and analyses should be open and accessible
+* EGU journals?
 
 ```{r Diagram}
 plot(1:225, 1:225, axes=F, col= "white", xlab="",
